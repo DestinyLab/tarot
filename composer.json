@@ -1,0 +1,22 @@
+{
+    "name": "destinylab/tarot",
+    "description": "The tool of Tarot Decks",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lance He",
+            "email": "indigofeather@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "fuelphp/filesystem": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "DestinyLab\\": "src/"
+        }
+    }
+}
+

@@ -6,37 +6,42 @@
 
 namespace DestinyLab;
 
-use \Fuel\FileSystem\Finder;
-use \Fuel\FileSystem\File;
+use Fuel\FileSystem\File;
+use Fuel\FileSystem\Finder;
 
 /**
  * TarotDeck
  *
  * @package DestinyLab
- * @author Lance He <indigofeather@gmail.com>
+ * @author  Lance He <indigofeather@gmail.com>
  */
 class TarotDeck
 {
     protected $cards = [];
     protected $groups = [];
 
+    /**
+     * @param string $deckName
+     * @param array  $path
+     * @throws TarotException
+     */
     public function __construct($deckName, array $path = [])
     {
         $defaultPath = [__DIR__.'/../resources/'];
-        $path = $path ? array_merge($path, $defaultPath) : $defaultPath;
-        $finder = new Finder($path, '.json');
-        $filePath = $finder->find($deckName);
-        if ( ! $filePath) {
+        $path        = $path ? array_merge($path, $defaultPath) : $defaultPath;
+        $finder      = new Finder($path, '.json');
+        $filePath    = $finder->find($deckName);
+        if (!$filePath) {
             throw new TarotException('File is not exist!');
         }
 
         $file = new File($filePath);
         $data = json_decode($file->getContents(), true);
-        if ( ! isset($data['cards']) or ! isset($data['groups'])) {
+        if ( ! isset($data['cards']) or !isset($data['groups'])) {
             throw new TarotException('Content errors!');
         }
 
-        $this->cards = $data['cards'];
+        $this->cards  = $data['cards'];
         $this->groups = $data['groups'];
     }
 
@@ -95,6 +100,15 @@ class TarotDeck
     }
 
     /**
+     * @param $group
+     * @return bool
+     */
+    public function validGroup($group)
+    {
+        return isset($this->groups[$group]);
+    }
+
+    /**
      * @return array
      */
     public function getSupportGroups()
@@ -114,14 +128,5 @@ class TarotDeck
         }
 
         return $this->groups[$group];
-    }
-
-    /**
-     * @param $group
-     * @return bool
-     */
-    public function validGroup($group)
-    {
-        return isset($this->groups[$group]);
     }
 }

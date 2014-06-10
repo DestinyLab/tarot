@@ -37,7 +37,7 @@ class TarotDeck
 
         $file = new File($filePath);
         $data = json_decode($file->getContents(), true);
-        if ( ! isset($data['cards']) or !isset($data['groups'])) {
+        if (! isset($data['cards']) or !isset($data['groups'])) {
             throw new TarotException('Content errors!');
         }
 
@@ -80,7 +80,7 @@ class TarotDeck
     {
         $cardIds = [];
         foreach ($groups as $group) {
-            if ( ! $this->validGroup($group)) {
+            if (! $this->validGroup($group)) {
                 throw new TarotException("group [{$group}] is not exist!");
             }
 
@@ -123,7 +123,7 @@ class TarotDeck
      */
     public function getGroup($group)
     {
-        if ( ! $this->validGroup($group)) {
+        if (! $this->validGroup($group)) {
             throw new TarotException("group [{$group}] is not exist!");
         }
 

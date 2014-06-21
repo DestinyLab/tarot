@@ -17,6 +17,8 @@ use Fuel\FileSystem\Finder;
  */
 class TarotDeck
 {
+    use TarotTrait;
+
     protected $cards = [];
     protected $groups = [];
 
@@ -31,13 +33,13 @@ class TarotDeck
         $path        = $path ? array_merge($path, $defaultPath) : $defaultPath;
         $finder      = new Finder($path, '.json');
         $filePath    = $finder->find($deckName);
-        if (!$filePath) {
+        if (! $filePath) {
             throw new TarotException('File is not exist!');
         }
 
         $file = new File($filePath);
         $data = json_decode($file->getContents(), true);
-        if (! isset($data['cards']) or !isset($data['groups'])) {
+        if (! isset($data['cards']) or ! isset($data['groups'])) {
             throw new TarotException('Content errors!');
         }
 
@@ -59,16 +61,7 @@ class TarotDeck
      */
     public function getCardsByIds(array $cardIds)
     {
-        $cards = array_filter(
-            $this->cards,
-            function ($card) use ($cardIds) {
-                if (in_array($card['id'], $cardIds)) {
-                    return $card;
-                }
-            }
-        );
-
-        return array_values($cards);
+        return array_values($this->filterCards($this->cards, $cardIds));
     }
 
     /**
@@ -87,14 +80,7 @@ class TarotDeck
             $cardIds = array_merge($cardIds, $this->groups[$group]);
         }
 
-        $cards = array_filter(
-            $this->cards,
-            function ($card) use ($cardIds) {
-                if (in_array($card['id'], $cardIds)) {
-                    return $card;
-                }
-            }
-        );
+        $cards = $this->filterCards($this->cards, $cardIds);
 
         return array_values($cards);
     }

@@ -14,6 +14,8 @@ namespace DestinyLab;
  */
 class TarotDraw
 {
+    use TarotTrait;
+
     /**
      * @var TarotDeck
      */
@@ -93,7 +95,7 @@ class TarotDraw
         $cardIds = [];
         foreach ($cardIdsOrGroups as $val) {
             $isGroup = $this->deck->validGroup($val);
-            if (!$isGroup and !is_int($val)) {
+            if (! $isGroup and ! is_int($val)) {
                 throw new TarotException("[{$val}] is not group or cardId!");
             }
 
@@ -122,16 +124,7 @@ class TarotDraw
     public function draw($number = 0)
     {
         $cardIds = array_diff($this->include, $this->exclude);
-
-        $this->cards = array_filter(
-            $this->getCards(),
-            function ($card) use ($cardIds) {
-                if (in_array($card['id'], $cardIds)) {
-                    return $card;
-                }
-            }
-        );
-
+        $this->cards = $this->filterCards($this->getCards(), $cardIds);
         $number === 0 and $number = $this->number;
         $this->shuffle and shuffle($this->cards);
 

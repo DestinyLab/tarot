@@ -104,7 +104,7 @@ class TarotDeck
 
     /**
      * @param $group
-     * @return mixed
+     * @return array
      * @throws TarotException when group is invalid
      */
     public function getGroup($group)

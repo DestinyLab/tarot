@@ -124,7 +124,7 @@ class TarotDraw
     public function draw($number = 0)
     {
         $cardIds = array_diff($this->include, $this->exclude);
-        $this->cards = $this->filterCards($this->getCards(), $cardIds);
+        $this->cards = ! $cardIds ? $this->getCards() : $this->filterCards($this->getCards(), $cardIds);
         $number === 0 and $number = $this->number;
         $this->shuffle and shuffle($this->cards);
 
@@ -161,5 +161,20 @@ class TarotDraw
         $this->exclude  = [];
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function config()
+    {
+        return [
+            'cards' => $this->cards,
+            'number' => $this->number,
+            'reversed' => $this->reversed,
+            'shuffle' => $this->shuffle,
+            'include' => $this->include,
+            'exclude' => $this->exclude,
+        ];
     }
 }

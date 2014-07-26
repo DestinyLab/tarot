@@ -6,8 +6,7 @@
 
 namespace DestinyLab;
 
-use Fuel\FileSystem\File;
-use Fuel\FileSystem\Finder;
+use Indigofeather\ResourceLoader\Container;
 
 /**
  * TarotDeck
@@ -24,21 +23,17 @@ class TarotDeck
 
     /**
      * @param string $deckName
-     * @param array  $path
+     * @param array  $paths
      * @throws TarotException
      */
-    public function __construct($deckName, array $path = [])
+    public function __construct($deckName, array $paths = [])
     {
-        $defaultPath = [__DIR__.'/../resources/'];
-        $path        = $path ? array_merge($path, $defaultPath) : $defaultPath;
-        $finder      = new Finder($path, '.json');
-        $filePath    = $finder->find($deckName);
-        if (! $filePath) {
-            throw new TarotException('File is not exist!');
-        }
+        $container = new Container();
+        $container->setDefaultFormat('json')
+            ->addPath(__DIR__.'/../resources/');
+        $paths and $container->addPaths($paths);
+        $data = $container->load($deckName);
 
-        $file = new File($filePath);
-        $data = json_decode($file->getContents(), true);
         if (! isset($data['cards']) or ! isset($data['groups'])) {
             throw new TarotException('Content errors!');
         }

@@ -12,7 +12,7 @@ class TarotDeckTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
-        $this->path = __DIR__.'/resources/';
+        $this->path = codecept_root_dir().'resources/';
         $this->tarotDeck = new TarotDeck('custom', [$this->path]);
     }
 

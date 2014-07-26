@@ -1,6 +1,7 @@
 # Tarot
 
 [![Build Status](https://travis-ci.org/DestinyLab/tarot.svg?branch=master)](https://travis-ci.org/DestinyLab/tarot)
+
 Tarot is the tool of Tarot Decks.
 
 ## Requirement

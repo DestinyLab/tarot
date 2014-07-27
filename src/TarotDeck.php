@@ -38,7 +38,7 @@ class TarotDeck
             throw new TarotException('Content errors!');
         }
 
-        $this->cards  = $data['cards'];
+        $this->cards = $data['cards'];
         $this->groups = $data['groups'];
     }
 

@@ -153,12 +153,12 @@ class TarotDraw
      */
     public function reset()
     {
-        $this->cards    = [];
-        $this->number   = 0;
+        $this->cards = [];
+        $this->number = 0;
         $this->reversed = true;
-        $this->shuffle  = true;
-        $this->include  = [];
-        $this->exclude  = [];
+        $this->shuffle = true;
+        $this->include = [];
+        $this->exclude = [];
 
         return $this;
     }

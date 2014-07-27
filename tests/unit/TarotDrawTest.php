@@ -17,7 +17,7 @@ class TarotDrawTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
-        $this->tarotDeck = new TarotDeck('custom', [__DIR__.'/resources/']);
+        $this->tarotDeck = new TarotDeck('custom', [codecept_root_dir().'resources/']);
         $this->tarotDraw = new TarotDraw($this->tarotDeck);
     }
 

@@ -14,7 +14,7 @@
         "indigofeather/resource-loader": "dev-master"
     },
     "require-dev": {
-        "codeception/codeception": "*"
+        "codeception/codeception": "2.0.12"
     },
     "autoload": {
         "psr-4": {
